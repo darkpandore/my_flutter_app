@@ -11,9 +11,15 @@ workflows:
       - flutter build ios --release --no-codesign
       - |
         cd ios
-        xcode-project build-ipa \
-          --workspace Runner.xcworkspace \
-          --scheme Runner \
-          --export-options-plist export_options.plist
+        xcodebuild archive \
+          -workspace Runner.xcworkspace \
+          -scheme Runner \
+          -archivePath build/Runner.xcarchive \
+          CODE_SIGNING_ALLOWED=NO
+        xcodebuild -exportArchive \
+          -archivePath build/Runner.xcarchive \
+          -exportOptionsPlist export_options.plist \
+          -exportPath build/ios/ipa \
+          CODE_SIGNING_ALLOWED=NO
     artifacts:
       - build/ios/ipa/*.ipa
