@@ -9,6 +9,6 @@ workflows:
       - flutter clean
       - flutter pub get
       - flutter build ios --release --no-codesign
-      - xcode-project build-ipa --no-codesign
+      - xcode-project build-ipa
     artifacts:
       - build/ios/ipa/*.ipa
